@@ -4,11 +4,11 @@ all:
   vars:
     env: testnet
   children:
-    sui:
+    celestia:
       hosts:
-        bridge.sui.mainnet.encapsulate.xyz:
+        bridge.celestia.testnet.encapsulate.xyz:
           type: bridge
-        validator.sui.mainnet.encapsulate.xyz:
+        validator.celestia.testnet.encapsulate.xyz:
           type: validator
-        fullnode.sui.mainnet.encapsulate.xyz:
+        fullnode.celestia.testnet.encapsulate.xyz:
           type: fullnode
