@@ -1,1 +1,1 @@
-# Template
+# Celestia Node Setup
