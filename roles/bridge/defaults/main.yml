@@ -3,21 +3,49 @@
 bridge_home_dir: /opt/{{ service_identifier }}
 
 bridge_bin_dir: "{{ bridge_home_dir }}/bin"
-bridge_config_dir: "{{ bridge_home_dir }}/config"
+bridge_blocks_dir: "{{ bridge_home_dir }}/blocks"
 bridge_data_dir: "{{ bridge_home_dir }}/data"
+bridge_index_dir: "{{ bridge_home_dir }}/index"
+bridge_inverted_index_dir: "{{ bridge_home_dir }}/inverted_index"
+bridge_key_dir: "{{ bridge_home_dir }}/keys"
+bridge_keyring_dir: "{{ bridge_key_dir }}/keyring-test"
 bridge_log_dir: "{{ bridge_home_dir }}/log"
-bridge_key_pairs_dir: "{{ bridge_home_dir }}/key-pairs"
 
 bridge_directories:
   - "{{ bridge_home_dir }}"
   - "{{ bridge_bin_dir }}"
-  - "{{ bridge_config_dir }}"
+  - "{{ bridge_blocks_dir }}"
   - "{{ bridge_data_dir }}"
-  - "{{ bridge_key_pairs_dir }}"
+  - "{{ bridge_index_dir }}"
+  - "{{ bridge_inverted_index_dir }}"
+  - "{{ bridge_key_dir }}"
+  - "{{ bridge_keyring_dir }}"
   - "{{ bridge_log_dir }}"
 
-bridge_config_file_path: "{{ bridge_config_dir }}/{{ bridge_config_file_name }}"
+bridge_config_file_path: "{{ bridge_home_dir }}/{{ bridge_config_file_name }}"
 bridge_log_file_path: "{{ bridge_log_dir }}/{{ service_identifier }}.log"
 
-bridge_authority_key_path: "{{ bridge_key_pairs_dir }}/{{ bridge_authority_key_file_name }}"
-bridge_client_key_path: "{{ bridge_key_pairs_dir }}/{{ bridge_client_key_file_name }}"
+bridge_node_key_oaz_path: "{{ bridge_key_dir }}/{{ bridge_node_key_oaz_file_name }}"
+bridge_node_key_nj3_path: "{{ bridge_key_dir }}/{{ bridge_node_key_nj3_file_name }}"
+
+# zfs
+bridge_zfs_image_size: 50G
+bridge_zfs_image_dir: /var/lib/zfs_images
+bridge_zfs_image_path: "{{ bridge_zfs_image_dir }}/{{ service_identifier }}_zfs.img"
+
+bridge_zfs_pool_mount_point: "{{ bridge_home_dir }}"
+bridge_zfs_pool_name: "{{ service_identifier }}"
+
+bridge_zfs_dataset_mount_point:
+  - "{{ bridge_blocks_dir }}"
+  - "{{ bridge_data_dir }}"
+  - "{{ bridge_index_dir }}"
+  - "{{ bridge_inverted_index_dir }}"
+
+bridge_zfs_dataset_name:
+  - "{{ service_identifier }}/blocks"
+  - "{{ service_identifier }}/data"
+  - "{{ service_identifier }}/index"
+  - "{{ service_identifier }}/inverted_index"
+
+bridge_zfs_compression_level: zstd-3

@@ -1,0 +1,20 @@
+[Unit]
+Description={{ service_identifier }}
+
+[Service]
+User={{ service_identifier }}
+Group={{ service_identifier }}
+WorkingDirectory={{ bridge_home_dir }}
+ExecStart={{ bridge_bin_dir }}/{{ service_identifier }} bridge start \
+--p2p.network {{ bridge_chain_id.testnet }} \
+--metrics.tls=true --metrics --metrics.endpoint otel.celestia-mocha.com \
+--node.store {{ bridge_home_dir }}
+Restart=always
+RestartSec=4
+LimitNOFILE=65536
+MemoryLimit=64G
+StandardOutput=append:{{ bridge_log_file_path }}
+StandardError=inherit
+
+[Install]
+WantedBy=multi-user.target

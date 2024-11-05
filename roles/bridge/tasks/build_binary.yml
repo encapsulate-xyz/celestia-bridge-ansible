@@ -1,0 +1,39 @@
+---
+- name: Ensure tmp directory exists
+  ansible.builtin.file:
+    path: "{{ tmp_dir }}"
+    state: directory
+    mode: "0777"
+
+- name: Clone the repository to /tmp
+  ansible.builtin.git:
+    repo: "{{ vars[project][type].source_url }}"
+    dest: "{{ tmp_dir }}/{{ project }}"
+    version: "{{ vars[project][type].version }}"
+    force: true
+
+- name: Build the project using `make build`
+  community.general.make:
+    chdir: "{{ tmp_dir }}/{{ project }}"
+    target: build
+  environment:
+    PATH: "{{ go.root }}/bin:{{ ansible_env.PATH }}"
+    GOROOT: "{{ go.root }}"
+    GOPATH: "{{ go.path }}"
+    GO111MODULE: "{{ go.module111 }}"
+
+- name: Copy the built binary to the target directory
+  vars:
+    binary_location: "{{ tmp_dir }}/{{ project }}/build/{{ bridge_default_binary_name }}"
+  ansible.builtin.copy:
+    src: "{{ binary_location }}"
+    dest: "{{ bridge_bin_dir }}/{{ service_identifier }}"
+    mode: "0755"
+    owner: root
+    group: root
+    remote_src: true
+
+- name: Clean up the temporary repository directory
+  ansible.builtin.file:
+    path: "{{ tmp_dir }}/{{ project }}"
+    state: absent
