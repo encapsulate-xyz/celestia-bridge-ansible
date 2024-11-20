@@ -1,5 +1,13 @@
 ---
-- name: Include build binary task
+- name: Include the ufw rules var file
+  ansible.builtin.include_vars:
+    file: vars/ufw_rules.yml
+
+- name: Apply UFW rules for each node type
+  ansible.builtin.include_tasks: tasks/apply_ufw_rules.yml
+  loop: "{{ bridge_ufw_rules }}"
+
+- name: Include setup zfs task
   ansible.builtin.include_tasks: setup_zfs.yml
 
 - name: Include user creation task for celestia
