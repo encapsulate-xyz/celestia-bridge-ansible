@@ -9,6 +9,7 @@ bridge_index_dir: "{{ bridge_home_dir }}/index"
 bridge_inverted_index_dir: "{{ bridge_home_dir }}/inverted_index"
 bridge_key_dir: "{{ bridge_home_dir }}/keys"
 bridge_keyring_dir: "{{ bridge_key_dir }}/keyring-test"
+bridge_transients_dir: "{{ bridge_home_dir }}/transientss"
 bridge_log_dir: "{{ bridge_home_dir }}/log"
 
 bridge_directories:
@@ -20,6 +21,7 @@ bridge_directories:
   - "{{ bridge_inverted_index_dir }}"
   - "{{ bridge_key_dir }}"
   - "{{ bridge_keyring_dir }}"
+  - "{{ bridge_transients_dir }}"
   - "{{ bridge_log_dir }}"
 
 bridge_config_file_path: "{{ bridge_home_dir }}/{{ bridge_config_file_name }}"
