@@ -1,11 +1,9 @@
 ---
 # maintains versions and can overwrite all.yml
 celestia:
-  validator:
-    version: c9ae0f9282a0643544db27409e07d3ac5dd09105
-  fullnode:
-    version: c9ae0f9282a0643544db27409e07d3ac5dd09105
   bridge:
     version: v0.17.2
     go:
       version: 1.23.0
+    chain_id: celestia
+    metrics_endpoint: otel.celestia.observer
