@@ -8,7 +8,3 @@ all:
       hosts:
         bridge.celestia.testnet.encapsulate.xyz:
           type: bridge
-        validator.celestia.testnet.encapsulate.xyz:
-          type: validator
-        fullnode.celestia.testnet.encapsulate.xyz:
-          type: fullnode
