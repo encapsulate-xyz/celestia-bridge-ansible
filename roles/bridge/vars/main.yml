@@ -8,11 +8,11 @@ bridge_node_key_nj3_file_name: NJ3XILLTMVRXEZLUFZVHO5A
 
 # binary names
 bridge_default_binary_name: celestia
+bridge_cel_key_binary_name: cel-key
 
-bridge_chain_id:
+bridge_core_ip:
   mainnet:
-  testnet: mocha-4
+  testnet: rpc-mocha.pops.one
 
-bridge_core_ip: rpc-mocha.pops.one
-bridge_core_rpc_port: "{{ rpc_port }}"
-bridge_core_grpc_port: "{{ grpc_port }}"
+bridge_core_rpc_port: "26657"
+bridge_core_grpc_port: "9090"
