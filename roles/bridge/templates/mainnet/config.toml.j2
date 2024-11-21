@@ -34,11 +34,10 @@
   Enabled = true
 
 [Share]
+  BlockStoreCacheSize = 128
   UseShareExchange = true
   [Share.EDSStoreParams]
-    GCInterval = "0s"
     RecentBlocksCacheSize = 10
-    BlockstoreCacheSize = 128
   [Share.ShrExEDSParams]
     ServerReadTimeout = "5s"
     ServerWriteTimeout = "1m0s"

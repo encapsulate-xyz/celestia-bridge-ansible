@@ -11,7 +11,7 @@ bridge_default_binary_name: celestia
 bridge_cel_key_binary_name: cel-key
 
 bridge_core_ip:
-  mainnet:
+  mainnet: consensus.lunaroasis.net
   testnet: rpc-mocha.pops.one
 
 bridge_core_rpc_port: "26657"

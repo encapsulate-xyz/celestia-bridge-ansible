@@ -5,11 +5,8 @@ bridge_home_dir: /opt/{{ service_identifier }}
 bridge_bin_dir: "{{ bridge_home_dir }}/bin"
 bridge_blocks_dir: "{{ bridge_home_dir }}/blocks"
 bridge_data_dir: "{{ bridge_home_dir }}/data"
-bridge_index_dir: "{{ bridge_home_dir }}/index"
-bridge_inverted_index_dir: "{{ bridge_home_dir }}/inverted_index"
 bridge_key_dir: "{{ bridge_home_dir }}/keys"
 bridge_keyring_dir: "{{ bridge_key_dir }}/keyring-test"
-bridge_transients_dir: "{{ bridge_home_dir }}/transientss"
 bridge_log_dir: "{{ bridge_home_dir }}/log"
 
 bridge_directories:
@@ -17,11 +14,8 @@ bridge_directories:
   - "{{ bridge_bin_dir }}"
   - "{{ bridge_blocks_dir }}"
   - "{{ bridge_data_dir }}"
-  - "{{ bridge_index_dir }}"
-  - "{{ bridge_inverted_index_dir }}"
   - "{{ bridge_key_dir }}"
   - "{{ bridge_keyring_dir }}"
-  - "{{ bridge_transients_dir }}"
   - "{{ bridge_log_dir }}"
 
 bridge_config_file_path: "{{ bridge_home_dir }}/{{ bridge_config_file_name }}"
@@ -41,13 +35,9 @@ bridge_zfs_pool_name: "{{ service_identifier }}"
 bridge_zfs_dataset_mount_point:
   - "{{ bridge_blocks_dir }}"
   - "{{ bridge_data_dir }}"
-  - "{{ bridge_index_dir }}"
-  - "{{ bridge_inverted_index_dir }}"
 
 bridge_zfs_dataset_name:
   - "{{ service_identifier }}/blocks"
   - "{{ service_identifier }}/data"
-  - "{{ service_identifier }}/index"
-  - "{{ service_identifier }}/inverted_index"
 
 bridge_zfs_compression_level: zstd-3
