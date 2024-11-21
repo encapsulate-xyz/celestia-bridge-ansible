@@ -37,14 +37,14 @@
       vars:
         vault_secret_source_path: "{{ project }}/{{ org }}/{{ type }}/{{ bridge_node_key_nj3_file_name }}"
         secret_destination_path: "{{ bridge_node_key_nj3_path }}"
-        secret_type: key
+        secret_type: json
 
-    - name: Fetch Node oaz key and save
+    - name: Fetch Node OAZ key and save
       ansible.builtin.include_tasks: tasks/get_and_save_vault_secret.yml
       vars:
         vault_secret_source_path: "{{ project }}/{{ org }}/{{ type }}/{{ bridge_node_key_oaz_file_name }}"
         secret_destination_path: "{{ bridge_node_key_oaz_path }}"
-        secret_type: key
+        secret_type: json
 
 - name: Copy celestia bridge node systemd service file
   ansible.builtin.template:
