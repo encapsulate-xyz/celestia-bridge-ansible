@@ -1,14 +1,7 @@
 ---
 bridge_ufw_rules:
-  validator:
-    - port: "{{ bridge_p2p_port }}"
-      proto: tcp
-      rule: allow
-      from: any
-      comment: p2p_port
-
-    - port: "{{ bridge_rpc_port }}"
-      proto: tcp
-      rule: allow
-      from: any
-      comment: bridge_rpc_port
+  - port: "{{ bridge_p2p_port }}"
+    proto: tcp
+    rule: allow
+    from: any
+    comment: p2p_port
