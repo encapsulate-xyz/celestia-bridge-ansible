@@ -25,7 +25,7 @@ celestia:
   bridge:
     source_url: https://github.com/celestiaorg/celestia-node
     ports:
-      prefix: 104
+      prefix: 266
       suffix:
         rpc: 58
         p2p: 21

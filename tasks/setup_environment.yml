@@ -27,7 +27,6 @@
     bridge_rpc_port: "{{ vars[project][type].ports.prefix ~ vars[project][type].ports.suffix.rpc }}"
     bridge_p2p_port: "{{ vars[project][type].ports.prefix ~ vars[project][type].ports.suffix.p2p }}"
     bridge_gateway_port: "{{ vars[project][type].ports.prefix ~ vars[project][type].ports.suffix.gateway }}"
-  when: type == "bridge"
 
 - name: Display all bridge port variables
   ansible.builtin.debug:
@@ -35,7 +34,6 @@
       - "P2P Port: {{ bridge_p2p_port }}"
       - "RPC Port: {{ bridge_rpc_port }}"
       - "Gateway: {{ bridge_gateway_port }}"
-  when: type == "bridge"
 
 - name: Confirm deployment details
   ansible.builtin.pause:
