@@ -7,3 +7,8 @@ celestia:
       version: 1.23.0
     chain_id: celestia
     metrics_endpoint: otel.celestia.observer
+
+  bridge_rpc:
+    ip: consensus.lunaroasis.net
+    rpc_port: 26657
+    grpc_port: 9090

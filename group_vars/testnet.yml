@@ -7,3 +7,8 @@ celestia:
       version: 1.23.0
     chain_id: mocha
     metrics_endpoint: otel.celestia-mocha.com
+
+  bridge_rpc:
+    ip: rpc-mocha.pops.one
+    rpc_port: 26657
+    grpc_port: 9090
