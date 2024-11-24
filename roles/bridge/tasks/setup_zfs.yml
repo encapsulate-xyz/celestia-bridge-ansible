@@ -1,0 +1,60 @@
+---
+- name: Install ZFS utilities
+  ansible.builtin.apt:
+    name: zfsutils-linux
+    state: present
+    update_cache: true
+
+- name: Create directory for filesystem image
+  ansible.builtin.file:
+    path: "{{ bridge_zfs_image_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Create a filesystem image of specified size
+  ansible.builtin.command:
+    cmd: fallocate -l {{ bridge_zfs_image_size }} {{ bridge_zfs_image_path }}
+    creates: "{{ bridge_zfs_image_path }}"
+
+- name: Check if loopback device exists
+  ansible.builtin.command:
+    cmd: losetup -j {{ bridge_zfs_image_path }}
+  register: loopback_exists
+  changed_when: false
+  failed_when: false
+
+- name: Set up loopback device
+  ansible.builtin.command:
+    cmd: losetup -f {{ bridge_zfs_image_path }}
+  when: loopback_exists.stdout == ""
+  changed_when: false
+
+- name: Retrieve loopback device
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      losetup -a | grep {{ bridge_zfs_image_path }} | cut -d: -f1
+  register: loop_device
+  changed_when: false
+
+- name: Create ZFS pool with mount point
+  ansible.builtin.command:
+    cmd: zpool create -m {{ bridge_zfs_pool_mount_point }} {{ bridge_zfs_pool_name }} {{ loop_device.stdout }}
+    creates: "{{ bridge_zfs_pool_mount_point }}"
+  when: loop_device.stdout is defined
+
+- name: Create dataset in ZFS pool
+  ansible.builtin.shell:
+    cmd: zfs list {{ item.1 }} || zfs create -o mountpoint={{ item.0 }} {{ item.1 }}
+  loop: "{{ bridge_zfs_dataset_mount_point | zip(bridge_zfs_dataset_name) | list }}"
+  changed_when: false
+
+- name: Set compression rate on ZFS dataset
+  ansible.builtin.command:
+    cmd: zfs set compression={{ bridge_zfs_compression_level }} {{ item }}
+  loop: "{{ bridge_zfs_dataset_name }}"
+  loop_control:
+    label: "{{ item }}"
+  changed_when: false

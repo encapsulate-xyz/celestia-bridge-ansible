@@ -5,9 +5,9 @@ Description={{ service_identifier }}
 User={{ service_identifier }}
 Group={{ service_identifier }}
 WorkingDirectory={{ bridge_home_dir }}
-Environment=RUST_BACKTRACE=1
-Environment=RUST_LOG=info,sui_bridge=debug
-ExecStart={{ bridge_bin_dir }}/{{ service_identifier }} --config-path {{ bridge_config_file_path }}
+ExecStart={{ bridge_bin_dir }}/{{ service_identifier }} bridge start \
+--metrics.tls=true --metrics --metrics.endpoint {{ celestia.bridge.metrics_endpoint }} \
+--node.store {{ bridge_home_dir }}
 Restart=always
 RestartSec=4
 LimitNOFILE=65536

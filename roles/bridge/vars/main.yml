@@ -2,10 +2,10 @@
 # maintains file name, binary names, and anything which is not a directory or path
 
 # config file names
-bridge_config_file_name: config.yaml
-bridge_authority_key_file_name: authority.key
-bridge_client_key_file_name: client.key
+bridge_config_file_name: config.toml
+bridge_node_key_oaz_file_name: OAZHALLLMV4Q
+bridge_node_key_nj3_file_name: NJ3XILLTMVRXEZLUFZVHO5A
 
 # binary names
-bridge_service_default_binary_name: sui-bridge
-bridge_cli_default_binary_name: sui-bridge-cli
+bridge_default_binary_name: celestia
+bridge_cel_key_binary_name: cel-key

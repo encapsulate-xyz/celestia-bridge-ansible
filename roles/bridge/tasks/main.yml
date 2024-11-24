@@ -1,14 +1,28 @@
 ---
-- name: Include user creation task for sui
+- name: Include the ufw rules var file
+  ansible.builtin.include_vars:
+    file: vars/ufw_rules.yml
+
+- name: Apply UFW rules for each node type
+  ansible.builtin.include_tasks: tasks/apply_ufw_rules.yml
+  loop: "{{ bridge_ufw_rules }}"
+
+- name: Include setup zfs task
+  ansible.builtin.include_tasks: setup_zfs.yml
+
+- name: Include user creation task for celestia
   ansible.builtin.include_tasks: tasks/create_user_and_directories.yml
   vars:
     home: "{{ bridge_home_dir }}"
     directories: "{{ bridge_directories }}"
     log_file_path: "{{ bridge_log_file_path }}"
 
+- name: Include build binary task
+  ansible.builtin.include_tasks: build_binary.yml
+
 - name: Copy bridge configuration file
   ansible.builtin.template:
-    src: "{{ env }}/bridge.yaml.j2"
+    src: "{{ env }}/config.toml.j2"
     dest: "{{ bridge_config_file_path }}"
     owner: "{{ service_identifier }}"
     group: "{{ service_identifier }}"
@@ -18,45 +32,23 @@
 
 - name: Fetch secrets from HCP Vault and save to files
   block:
-    - name: Fetch authority key and save
+    - name: Fetch node NJ3 key and save
       ansible.builtin.include_tasks: tasks/get_and_save_vault_secret.yml
       vars:
-        vault_secret_source_path: "{{ project }}/{{ org }}/{{ type }}/{{ bridge_authority_key_file_name }}"
-        secret_destination_path: "{{ bridge_authority_key_path }}"
-        secret_type: key
+        vault_secret_source_path: "{{ project }}/{{ org }}/{{ type }}/{{ bridge_node_key_nj3_file_name }}"
+        secret_destination_path: "{{ bridge_node_key_nj3_path }}"
+        secret_type: json
 
-    - name: Fetch client key and save
+    - name: Fetch Node OAZ key and save
       ansible.builtin.include_tasks: tasks/get_and_save_vault_secret.yml
       vars:
-        vault_secret_source_path: "{{ project }}/{{ org }}/{{ type }}/{{ bridge_client_key_file_name }}"
-        secret_destination_path: "{{ bridge_client_key_path }}"
-        secret_type: key
+        vault_secret_source_path: "{{ project }}/{{ org }}/{{ type }}/{{ bridge_node_key_oaz_file_name }}"
+        secret_destination_path: "{{ bridge_node_key_oaz_path }}"
+        secret_type: json
 
-- name: Fetch binaries
-  block:
-    - name: Fetch the service binary
-      ansible.builtin.get_url:
-        url: "{{ sui.bridge.source_url }}/{{ sui.bridge.version }}/{{ bridge_service_default_binary_name }}"
-        dest: "{{ bridge_bin_dir }}/{{ service_identifier }}"
-        owner: root
-        group: root
-        force: true
-        mode: "0755"
-      notify:
-        - Restart service
-
-    - name: Fetch the cli binary
-      ansible.builtin.get_url:
-        url: "{{ sui.bridge.source_url }}/{{ sui.bridge.version }}/{{ bridge_cli_default_binary_name }}"
-        dest: "{{ bridge_bin_dir }}/{{ bridge_cli_default_binary_name }}"
-        owner: root
-        group: root
-        force: true
-        mode: "0755"
-
-- name: Copy sui-node systemd service file
+- name: Copy celestia bridge node systemd service file
   ansible.builtin.template:
-    src: "{{ env }}/sui-bridge.service.j2"
+    src: "{{ env }}/bridge.service.j2"
     dest: /etc/systemd/system/{{ service_identifier }}.service
     owner: root
     group: root
