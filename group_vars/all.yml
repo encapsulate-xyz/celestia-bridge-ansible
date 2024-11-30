@@ -21,6 +21,10 @@ go:
   path: "{{ tmp_dir }}/go"
   module111: "on"
 
+# zfs
+zfs_image_size: 50G # Update according to server
+zfs_compression_level: zstd-3
+
 celestia:
   bridge:
     source_url: https://github.com/celestiaorg/celestia-node

@@ -9,6 +9,7 @@
 
 - name: Include setup zfs task
   ansible.builtin.include_tasks: setup_zfs.yml
+  when: zfs_setup | default(false) | bool
 
 - name: Include user creation task for celestia
   ansible.builtin.include_tasks: tasks/create_user_and_directories.yml
@@ -31,6 +32,7 @@
     - Restart service
 
 - name: Fetch secrets from HCP Vault and save to files
+  when: fetch_bridge_keys | default(false) | bool
   block:
     - name: Fetch node NJ3 key and save
       ansible.builtin.include_tasks: tasks/get_and_save_vault_secret.yml
