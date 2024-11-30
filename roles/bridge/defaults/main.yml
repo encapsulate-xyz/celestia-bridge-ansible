@@ -25,7 +25,6 @@ bridge_node_key_oaz_path: "{{ bridge_key_dir }}/{{ bridge_node_key_oaz_file_name
 bridge_node_key_nj3_path: "{{ bridge_key_dir }}/{{ bridge_node_key_nj3_file_name }}"
 
 # zfs
-bridge_zfs_image_size: 50G
 bridge_zfs_image_dir: /var/lib/zfs_images
 bridge_zfs_image_path: "{{ bridge_zfs_image_dir }}/{{ service_identifier }}_zfs.img"
 
@@ -39,5 +38,3 @@ bridge_zfs_dataset_mount_point:
 bridge_zfs_dataset_name:
   - "{{ service_identifier }}/blocks"
   - "{{ service_identifier }}/data"
-
-bridge_zfs_compression_level: zstd-3
