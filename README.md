@@ -105,10 +105,10 @@ vault:
 
 1. First, install the dependencies:
 
-   ```bash
+  ```
   ansible-galaxy role install -r roles/requirements.yml
   ansible-galaxy collection install -r collections/requirements.yml
-   ```
+  ```
 
 2. Create a `ansible_vault_password` file containing ansible-vault password
 
@@ -116,9 +116,10 @@ vault:
 
 4. Then run the playbook:
 
-  ```bash
+  ```
   ansible-playbook setup_bridge.yml -l bridge.celestia.testnet.encapsulate.xyz -e "fetch_secrets=true zfs_setup=true zfs_image_size=50G zfs_compression_level=zstd-3
   ```
+  
   **Note**: The default value for `fetch_secrets` is false, which disables fetching keys from HashiCorp Vault. When `zfs_setup` is set to true, it sets up a ZFS-based file system. Define the ZFS image size and compression level according to your server specifications.
 
 5. After completing the playbook, to recover your keys:
