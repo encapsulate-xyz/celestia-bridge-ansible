@@ -43,11 +43,7 @@
 - name: Create ZFS pool with mount point
   ansible.builtin.command:
     cmd: zpool create -m {{ bridge_zfs_pool_mount_point }} {{ bridge_zfs_pool_name }} {{ loop_device.stdout }}
-  changed_when: false
-
-- name: Debug loopback device output
-  ansible.builtin.debug:
-    msg: "Loop device is: {{ loop_device.stdout }}"
+    creates: "{{ bridge_zfs_pool_mount_point }}"
 
 - name: Create dataset in ZFS pool
   ansible.builtin.shell:
