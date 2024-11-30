@@ -117,10 +117,10 @@ vault:
 4. Then run the playbook:
 
   ```
-  ansible-playbook setup_bridge.yml -l bridge.celestia.testnet.encapsulate.xyz -e "fetch_secrets=true zfs_setup=true zfs_image_size=50G zfs_compression_level=zstd-3
+  ansible-playbook setup_bridge.yml -l bridge.celestia.testnet.encapsulate.xyz -e "fetch_validator_keys=true zfs_setup=true zfs_image_size=50G zfs_compression_level=zstd-3
   ```
-  
-  **Note**: The default value for `fetch_secrets` is false, which disables fetching keys from HashiCorp Vault. When `zfs_setup` is set to true, it sets up a ZFS-based file system. Define the ZFS image size and compression level according to your server specifications.
+
+  **Note**: The default value for `fetch_validator_keys` is false, which disables fetching keys from HashiCorp Vault. When `zfs_setup` is set to true, it sets up a ZFS-based file system. Define the ZFS image size and compression level according to your server specifications.
 
 5. After completing the playbook, to recover your keys:
 
