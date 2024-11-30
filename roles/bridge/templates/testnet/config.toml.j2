@@ -17,7 +17,6 @@
   NoAnnounceAddresses = ["/ip4/127.0.0.1/udp/{{ bridge_p2p_port }}/quic-v1/webtransport", "/ip4/0.0.0.0/udp/{{ bridge_p2p_port }}/quic-v1/webtransport", "/ip6/::/udp/{{ bridge_p2p_port }}/quic-v1/webtransport", "/ip4/0.0.0.0/udp/{{ bridge_p2p_port }}/quic-v1", "/ip4/127.0.0.1/udp/{{ bridge_p2p_port }}/quic-v1", "/ip6/::/udp/{{ bridge_p2p_port }}/quic-v1", "/ip4/0.0.0.0/udp/{{ bridge_p2p_port }}/webrtc-direct", "/ip4/127.0.0.1/udp/{{ bridge_p2p_port }}/webrtc-direct", "/ip6/::/udp/{{ bridge_p2p_port }}/webrtc-direct", "/ip4/0.0.0.0/tcp/{{ bridge_p2p_port }}", "/ip4/127.0.0.1/tcp/{{ bridge_p2p_port }}", "/ip6/::/tcp/{{ bridge_p2p_port }}"]
   MutualPeers = []
   PeerExchange = true
-  RoutingTableRefreshPeriod = "1m0s"
   [P2P.ConnManager]
     Low = 800
     High = 1000
