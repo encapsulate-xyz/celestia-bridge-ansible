@@ -3,9 +3,10 @@
   ShutdownTimeout = "2m0s"
 
 [Core]
-  IP = "{{ celestia.bridge_rpc.ip }}"
-  RPCPort = "{{ celestia.bridge_rpc.rpc_port }}"
-  GRPCPort = "{{ celestia.bridge_rpc.grpc_port }}"
+  IP = "{{ celestia.bridge_grpc.ip }}"
+  Port = "{{ celestia.bridge_grpc.grpc_port }}"
+  TLSEnabled = false
+  XTokenPath = ""
 
 [State]
   DefaultKeyName = "wallet"
