@@ -6,8 +6,8 @@ celestia:
     go:
       version: 1.23.0
     chain_id: mocha
-    metrics_endpoint: "{{ monitor_server_dns }}:4319"
+    metrics_endpoint: "{{ monitor_server_dns }}:4317"
 
   bridge_grpc:
-    ip: grpc-1.testnet.celestia.nodes.guru
-    grpc_port: 10790
+    ip: grpc-mocha.pops.one
+    grpc_port: 9090
