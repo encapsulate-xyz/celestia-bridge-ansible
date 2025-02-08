@@ -6,7 +6,7 @@ celestia:
     go:
       version: 1.23.0
     chain_id: celestia
-    metrics_endpoint: "{{ monitor_server_dns }}:4317"
+    metrics_endpoint: otel.celestia.observer
 
   bridge_rpc:
     ip: consensus.lunaroasis.net

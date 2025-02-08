@@ -6,7 +6,7 @@ celestia:
     go:
       version: 1.23.0
     chain_id: mocha
-    metrics_endpoint: "{{ monitor_server_dns }}:4317"
+    metrics_endpoint: otel.mocha.celestia.observer
 
   bridge_grpc:
     ip: grpc-mocha.pops.one
