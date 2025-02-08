@@ -2,13 +2,12 @@
 # maintains versions and can overwrite all.yml
 celestia:
   bridge:
-    version: v0.20.4
+    version: v0.21.5
     go:
       version: 1.23.0
     chain_id: celestia
     metrics_endpoint: otel.celestia.observer
 
-  bridge_rpc:
-    ip: consensus.lunaroasis.net
-    rpc_port: 26657
+  bridge_grpc:
+    ip: grpc.celestia.pops.one
     grpc_port: 9090
