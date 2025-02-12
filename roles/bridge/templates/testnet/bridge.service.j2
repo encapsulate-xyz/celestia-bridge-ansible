@@ -7,7 +7,7 @@ Group={{ service_identifier }}
 WorkingDirectory={{ bridge_home_dir }}
 ExecStart={{ bridge_bin_dir }}/{{ service_identifier }} bridge start \
 --p2p.network {{ celestia.bridge.chain_id }} \
---metrics.tls=true --metrics --metrics.endpoint {{ celestia.bridge.metrics_endpoint }} \
+--metrics.tls=flase --metrics --metrics.endpoint {{ celestia.bridge.metrics_endpoint }} \
 --node.store {{ bridge_home_dir }}
 Restart=always
 RestartSec=4
