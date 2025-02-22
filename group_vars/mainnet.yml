@@ -9,5 +9,5 @@ celestia:
     metrics_endpoint: "{{ monitor_server_dns }}:4317"
 
   bridge_grpc:
-    ip: grpc.celestia.pops.one
+    ip: consensus.lunaroasis.net
     grpc_port: 9090
