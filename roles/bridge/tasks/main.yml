@@ -18,8 +18,12 @@
     directories: "{{ bridge_directories }}"
     log_file_path: "{{ bridge_log_file_path }}"
 
-- name: Include build binary task
-  ansible.builtin.include_tasks: build_binary.yml
+- name: Include download binary task
+  ansible.builtin.include_tasks: download_binary.yml
+
+- name: Include build_cel_key_binary task
+  ansible.builtin.include_tasks: build_cel_key_binary.yml
+  when: make_cel_key | default(false) | bool
 
 - name: Copy bridge configuration file
   ansible.builtin.template:
