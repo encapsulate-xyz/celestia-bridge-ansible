@@ -24,3 +24,4 @@
   loop:
     - "{{ go.root }}"
     - "{{ go.path }}"
+  when: make_cel_key | default(false) | bool

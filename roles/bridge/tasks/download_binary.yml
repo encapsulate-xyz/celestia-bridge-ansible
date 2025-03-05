@@ -1,0 +1,37 @@
+---
+- name: Create a tmp directory
+  ansible.builtin.file:
+    path: "{{ tmp_dir }}/{{ service_identifier }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Download and unarchive the binary
+  vars:
+    suffix_url: >
+      {{ celestia.bridge.version }}/celestia-node_{{ ansible_system }}_{{ ansible_architecture }}.tar.gz
+  ansible.builtin.unarchive:
+    src: "{{ celestia.bridge.source_url }}//releases/download/{{ suffix_url }}"
+    dest: "{{ tmp_dir }}/{{ service_identifier }}"
+    remote_src: true
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy the binary file
+  ansible.builtin.copy:
+    src: "{{ tmp_dir }}/{{ service_identifier }}/{{ bridge_default_binary_name }}"
+    dest: "{{ bridge_bin_dir }}/{{ service_identifier }}"
+    remote_src: true
+    owner: root
+    group: root
+    force: true
+    mode: "0755"
+  notify:
+    - Restart service
+
+- name: Clean up the temporary files in /tmp
+  ansible.builtin.file:
+    path: "{{ tmp_dir }}/{{ service_identifier }}"
+    state: absent

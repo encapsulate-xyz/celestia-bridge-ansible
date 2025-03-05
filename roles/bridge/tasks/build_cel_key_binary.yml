@@ -12,16 +12,6 @@
     version: "{{ vars[project][type].version }}"
     force: true
 
-- name: Build the project using `make build`
-  community.general.make:
-    chdir: "{{ tmp_dir }}/{{ project }}"
-    target: build
-  environment:
-    PATH: "{{ go.root }}/bin:{{ ansible_env.PATH }}"
-    GOROOT: "{{ go.root }}"
-    GOPATH: "{{ go.path }}"
-    GO111MODULE: "{{ go.module111 }}"
-
 - name: Build the cel-key using `make cel-key`
   community.general.make:
     chdir: "{{ tmp_dir }}/{{ project }}"
@@ -31,19 +21,6 @@
     GOROOT: "{{ go.root }}"
     GOPATH: "{{ go.path }}"
     GO111MODULE: "{{ go.module111 }}"
-
-- name: Copy the built binary to the target directory
-  vars:
-    binary_location: "{{ tmp_dir }}/{{ project }}/build/{{ bridge_default_binary_name }}"
-  ansible.builtin.copy:
-    src: "{{ binary_location }}"
-    dest: "{{ bridge_bin_dir }}/{{ service_identifier }}"
-    mode: "0755"
-    owner: root
-    group: root
-    remote_src: true
-  notify:
-    - Restart service
 
 - name: Copy the built cel-key binary to the target directory
   vars:
