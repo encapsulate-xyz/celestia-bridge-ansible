@@ -3,8 +3,8 @@
   ShutdownTimeout = "2m0s"
 
 [Core]
-  IP = "{{ celestia.bridge_grpc.ip }}"
-  Port = "{{ celestia.bridge_grpc.grpc_port }}"
+  IP = "{{ grpc_ip | default(celestia.bridge_grpc.ip) }}"
+  Port = "{{ grpc_port | default(celestia.bridge_grpc.grpc_port) }}"
   TLSEnabled = false
   XTokenPath = ""
 
