@@ -12,7 +12,7 @@
     suffix_url: >
       {{ celestia.bridge.version }}/celestia-node_{{ ansible_system }}_{{ ansible_architecture }}.tar.gz
   ansible.builtin.unarchive:
-    src: "{{ celestia.bridge.source_url }}//releases/download/{{ suffix_url }}"
+    src: "{{ celestia.bridge.source_url }}/releases/download/{{ suffix_url }}"
     dest: "{{ tmp_dir }}/{{ service_identifier }}"
     remote_src: true
     owner: root
