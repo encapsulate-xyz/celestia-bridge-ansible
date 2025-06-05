@@ -2,9 +2,9 @@
 # maintains versions and can overwrite all.yml
 celestia:
   bridge:
-    version: v0.22.2-mocha
+    version: v0.23.1-mocha
     go:
-      version: 1.23.5
+      version: 1.24.1
     chain_id: mocha
     metrics_endpoint: "{{ monitor_server_dns }}:4319"
 
