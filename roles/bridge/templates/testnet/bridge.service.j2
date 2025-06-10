@@ -12,7 +12,7 @@ ExecStart={{ bridge_bin_dir }}/{{ service_identifier }} bridge start \
 Restart=always
 RestartSec=4
 LimitNOFILE=65536
-MemoryLimit=64G
+MemoryMax=64G
 StandardOutput=append:{{ bridge_log_file_path }}
 StandardError=inherit
 
