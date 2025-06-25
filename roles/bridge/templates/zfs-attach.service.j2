@@ -1,0 +1,13 @@
+[Unit]
+Description=Attach celestia-bridge ZFS pool
+Before={{ service_identifier }}.service
+Requires=local-fs.target
+
+[Service]
+Type=oneshot
+User=root
+RemainAfterExit=true
+ExecStart={{ bridge_zfs_attach_script_file_path }}
+
+[Install]
+WantedBy=multi-user.target

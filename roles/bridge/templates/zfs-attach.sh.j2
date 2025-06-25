@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+# Stop services if running
+systemctl stop promtail.service || true
+systemctl stop {{ service_identifier }}.service || true
+
+# Setup loop device from image
+LOOP_DEVICE=$(losetup --find --show {{ bridge_zfs_image_path }})
+
+# Import the ZFS pool
+zpool import -d "$LOOP_DEVICE" {{ service_identifier }}
