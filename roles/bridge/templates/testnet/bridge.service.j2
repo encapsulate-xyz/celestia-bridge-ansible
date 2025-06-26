@@ -1,5 +1,7 @@
 [Unit]
 Description={{ service_identifier }}
+Requires={{ service_identifier }}-zfs-attach.service
+After={{ service_identifier }}-zfs-attach.service
 
 [Service]
 User={{ service_identifier }}

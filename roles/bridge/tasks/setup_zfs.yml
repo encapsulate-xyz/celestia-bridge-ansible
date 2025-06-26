@@ -58,3 +58,24 @@
   loop_control:
     label: "{{ item }}"
   changed_when: false
+
+- name: Copy celestia-bridge zfs attach script
+  ansible.builtin.template:
+    src: zfs-attach.j2
+    dest: "{{ bridge_zfs_attach_script_file_path }}"
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy celestia-bridge zfs attach systemd service file
+  ansible.builtin.template:
+    src: zfs-attach.service.j2
+    dest: /etc/systemd/system/{{ service_identifier }}-zfs-attach.service
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Enable celestia-bridge zfs attach service at boot
+  ansible.builtin.systemd:
+    name: "{{ service_identifier }}-zfs-attach.service"
+    enabled: true

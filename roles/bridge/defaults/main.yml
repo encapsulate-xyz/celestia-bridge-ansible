@@ -38,3 +38,5 @@ bridge_zfs_dataset_mount_point:
 bridge_zfs_dataset_name:
   - "{{ service_identifier }}/blocks"
   - "{{ service_identifier }}/data"
+
+bridge_zfs_attach_script_file_path: "{{ bridge_bin_dir }}/{{ bridge_zfs_attach_script_file_name }}"
