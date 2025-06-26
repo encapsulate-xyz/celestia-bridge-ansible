@@ -11,3 +11,6 @@ LOOP_DEVICE=$(losetup --find --show {{ bridge_zfs_image_path }})
 
 # Import the ZFS pool
 zpool import -d "$LOOP_DEVICE" {{ service_identifier }}
+
+# Restart promtail
+systemctl restart promtail.service
