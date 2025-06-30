@@ -72,10 +72,10 @@
   [Header.Server]
     WriteDeadline = "8s"
     ReadDeadline = "1m0s"
-    RequestTimeout = "10s"
+    RangeRequestTimeout = "0s"
   [Header.Client]
     MaxHeadersPerRangeRequest = 64
-    RequestTimeout = "8s"
+    RangeRequestTimeout = "0s"
 
 [Pruner]
   EnableService = false

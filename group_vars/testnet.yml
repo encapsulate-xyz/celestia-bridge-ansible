@@ -2,7 +2,7 @@
 # maintains versions and can overwrite all.yml
 celestia:
   bridge:
-    version: v0.23.1-mocha
+    version: v0.23.2-mocha
     go:
       version: 1.24.1
     chain_id: mocha
