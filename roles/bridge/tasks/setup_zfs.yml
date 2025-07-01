@@ -5,6 +5,12 @@
     state: present
     update_cache: true
 
+- name: Get zpool status for celestia-bridge
+  ansible.builtin.command: zpool list -H -o name,health celestia-bridge
+  register: zpool_status
+  changed_when: false
+  failed_when: false
+
 - name: Create directory for filesystem image
   ansible.builtin.file:
     path: "{{ bridge_zfs_image_dir }}"
@@ -12,11 +18,13 @@
     owner: root
     group: root
     mode: "0755"
+  when: "'ONLINE' not in zpool_status.stdout"
 
 - name: Create a filesystem image of specified size
   ansible.builtin.command:
     cmd: fallocate -l {{ zfs_image_size }} {{ bridge_zfs_image_path }}
     creates: "{{ bridge_zfs_image_path }}"
+  when: "'ONLINE' not in zpool_status.stdout"
 
 - name: Check if loopback device exists
   ansible.builtin.command:
@@ -24,12 +32,14 @@
   register: loopback_exists
   changed_when: false
   failed_when: false
+  when: "'ONLINE' not in zpool_status.stdout"
 
 - name: Set up loopback device
   ansible.builtin.command:
     cmd: losetup -f {{ bridge_zfs_image_path }}
   when: loopback_exists.stdout == ""
   changed_when: false
+  when: "'ONLINE' not in zpool_status.stdout"
 
 - name: Retrieve loopback device
   ansible.builtin.shell: |
@@ -39,17 +49,20 @@
   changed_when: false
   args:
     executable: /bin/bash
+  when: "'ONLINE' not in zpool_status.stdout"
 
 - name: Create ZFS pool with mount point
   ansible.builtin.command:
     cmd: zpool create -m {{ bridge_zfs_pool_mount_point }} {{ bridge_zfs_pool_name }} {{ loop_device.stdout }}
     creates: "{{ bridge_zfs_pool_mount_point }}"
+  when: "'ONLINE' not in zpool_status.stdout"
 
 - name: Create dataset in ZFS pool
   ansible.builtin.shell:
     cmd: zfs list {{ item.1 }} || zfs create -o mountpoint={{ item.0 }} {{ item.1 }}
   loop: "{{ bridge_zfs_dataset_mount_point | zip(bridge_zfs_dataset_name) | list }}"
   changed_when: false
+  when: "'ONLINE' not in zpool_status.stdout"
 
 - name: Set compression rate on ZFS dataset
   ansible.builtin.command:
@@ -58,6 +71,7 @@
   loop_control:
     label: "{{ item }}"
   changed_when: false
+  when: "'ONLINE' not in zpool_status.stdout"
 
 - name: Copy celestia-bridge zfs attach script
   ansible.builtin.template:
