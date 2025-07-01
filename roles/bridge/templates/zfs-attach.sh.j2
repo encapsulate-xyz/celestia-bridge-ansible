@@ -2,6 +2,12 @@
 
 set -e
 
+# Check if the zpool is already online
+if zpool list -H -o name,health | grep -q "^{{ service_identifier }}[[:space:]]\+ONLINE"; then
+  echo "ZFS pool '{{ service_identifier }}' is already ONLINE. Skipping import."
+  exit 0
+fi
+
 # Stop services if running
 systemctl stop promtail.service || true
 systemctl stop {{ service_identifier }}.service || true
