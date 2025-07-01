@@ -70,7 +70,7 @@
 
 - name: Copy celestia-bridge zfs attach script
   ansible.builtin.template:
-    src: zfs-attach.j2
+    src: zfs-attach.sh.j2
     dest: "{{ bridge_zfs_attach_script_file_path }}"
     owner: root
     group: root
