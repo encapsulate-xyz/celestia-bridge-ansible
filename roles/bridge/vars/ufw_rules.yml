@@ -5,3 +5,9 @@ bridge_ufw_rules:
     rule: allow
     from: any
     comment: p2p_port
+
+  - port: "{{ {{ bridge_rpc_port }} }}"
+    proto: tcp
+    rule: allow
+    from: validator.spicenet.testnet.encapsulate.xyz
+    comment: rpc_port
