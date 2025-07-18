@@ -2,9 +2,9 @@
 # maintains versions and can overwrite all.yml
 celestia:
   bridge:
-    version: v0.22.3
+    version: v0.23.5
     go:
-      version: 1.23.0
+      version: 1.24.1
     chain_id: celestia
     metrics_endpoint: "{{ monitor_server_dns }}:4317"
 
